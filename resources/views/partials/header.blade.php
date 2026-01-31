@@ -33,9 +33,18 @@
   <!-- Search & icons -->
   <div class="flex items-center space-x-4">
       <input type="text" placeholder="Search..." class="border rounded px-2 py-1">
-      <a href="{{ url('/profile') }}">
-          <img src="{{ asset('images/login6.png') }}" alt="Profile" class="w-8 h-8 rounded-full">
-      </a>
+      @auth
+    <!-- Logged-in: go to profile -->
+    <a href="{{ route('profile') }}">
+        <img src="{{ asset('images/login6.png') }}" alt="Profile" class="w-8 h-8 rounded-full">
+    </a>
+@else
+    <!-- Not logged-in: go to login -->
+    <a href="{{ route('login') }}">
+        <img src="{{ asset('images/login6.png') }}" alt="Login" class="w-8 h-8 rounded-full">
+    </a>
+@endauth
+
       <a href="{{ url('/cart') }}">
           <img src="{{ asset('images/cart 4.png') }}" alt="Cart" class="w-8 h-8">
       </a>

@@ -1,29 +1,29 @@
 {{-- Header --}}
 @include('partials.header')
 
-{{-- Login Form --}}
-<div class="max-w-md mx-auto mt-12 p-8 bg-white border-2 border-black rounded-xl text-center shadow-lg">
-    <h1 class="text-4xl font-bold mb-8">Login</h1>
+<div class="max-w-md mx-auto mt-16 p-8 bg-white rounded-xl shadow-lg">
+    <h1 class="text-3xl font-bold mb-6">Login</h1>
 
     <form method="POST" action="{{ route('login.post') }}">
+
+
         @csrf
 
-        <input type="email"
-               name="email"
-               placeholder="Email"
-               required
-               class="w-4/5 p-3 my-4 rounded-md bg-gray-300 text-base focus:outline-none focus:ring-2 focus:ring-gray-400">
+        <input type="email" name="email" placeholder="Email"
+               class="w-full p-3 mb-4 rounded-lg bg-gray-200"
+               value="{{ old('email') }}" required autofocus>
 
-        <input type="password"
-               name="password"
-               placeholder="Password"
-               required
-               class="w-4/5 p-3 my-4 rounded-md bg-gray-300 text-base focus:outline-none focus:ring-2 focus:ring-gray-400">
+        <input type="password" name="password" placeholder="Password"
+               class="w-full p-3 mb-4 rounded-lg bg-gray-200" required>
 
         <button type="submit"
-                class="w-1/2 mt-6 py-3 rounded-full bg-gradient-to-r from-yellow-200 to-green-400 text-lg font-semibold shadow-md hover:from-yellow-300 hover:to-green-500 transition">
+                class="w-full py-3 rounded-full bg-indigo-500 text-white font-bold hover:bg-indigo-600 transition">
             Login
         </button>
+
+        @if ($errors->any())
+            <p class="text-red-600 mt-2">{{ $errors->first() }}</p>
+        @endif
     </form>
 </div>
 

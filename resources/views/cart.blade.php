@@ -35,7 +35,11 @@
                     <a href="{{ route('cart.clear') }}" 
                        class="bg-gray-300 px-4 py-2 rounded-lg hover:bg-gray-400">Clear Cart</a>
 
-                    
+                    <!-- Checkout Button -->
+                    <a href="{{ route('checkout') }}" 
+                       class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">
+                        Checkout
+                    </a>
                 </div>
             </div>
         </div>

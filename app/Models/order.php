@@ -6,13 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class order extends Model
 {
-    protected $fillable =[
+    protected $table = 'orders'; // your table name
+
+    // Add all columns you want to mass assign
+    protected $fillable = [
         'order_date',
         'delivery_date',
         'amount',
-        'customer_ID',
+        'customer_name',
+        
+        
     ];
-
     public function customer()
     {
         return $this->belongsTo(Customer::class);

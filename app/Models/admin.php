@@ -6,11 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class admin extends Model
 {
+    protected $table = 'admins';
+    
     protected $fillable =[
         'admin_name',
         'admin_password',
         'admin_email',
 
+    ];
+
+     protected $hidden = [
+        'admin_password',
     ];
 
     public function customers()
