@@ -6,6 +6,11 @@ use App\Http\Controllers\authController;
 use App\Http\Controllers\cartController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Actions\Fortify\CreateNewUser;
+use Illuminate\Http\Request;
+
+
 
 
 Route::get('/', function () {
@@ -71,22 +76,21 @@ Route::post('/admin/product/upload', [ProductController::class, 'upload'])
 
 
 
-    /// Admin Product Upload Page
-Route::get('/admin/product/update', [ProductController::class, 'updateForm'])
-    ->name('admin.product.update'); // <- THIS NAME MUST MATCH your Blade
+ 
 
 
     // Reports
 Route::get('/admin/report', [DashboardController::class, 'report'])
     ->name('admin.report');
 
-   // Orders
+// Orders
 Route::get('/admin/orders', [DashboardController::class, 'orders'])
-    ->name('admin.orders');
+->name('admin.orders');
 
 // Customers
 Route::get('/admin/customers', [DashboardController::class, 'customers'])
-    ->name('admin.customers');
+->name('admin.customers');
+
 
 
 // Cart Page
@@ -147,4 +151,35 @@ Route::get('/order/confirmation/{id}', [CheckoutController::class, 'orderConfirm
 
     Route::get('/category', function () {
     return view('category');
-})->name('category');  
+})->name('category'); 
+
+
+
+// Product list
+Route::get('/admin/products', [ProductController::class, 'manage'])->name('admin.products');
+
+// Edit form
+Route::get('/admin/products/{id}/edit', [ProductController::class, 'edit'])->name('admin.products.edit');
+
+// Update product
+Route::put('/admin/products/{id}', [ProductController::class, 'update'])->name('admin.products.update');
+
+// Delete product
+Route::delete('/admin/products/{id}', [ProductController::class, 'destroy'])->name('admin.products.delete');
+
+
+
+
+
+// Show registration form
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('register');
+
+Route::post('/register', function (Request $request, CreateNewUser $creator) {
+    $creator->create($request->all());
+
+    return redirect()->route('login')->with('success', 'Registration successful! Please login.');
+})->name('register.post');
+
+

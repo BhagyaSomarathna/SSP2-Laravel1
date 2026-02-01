@@ -7,18 +7,21 @@
 <div class="max-w-md mx-auto mt-16 p-8 bg-white border-2 border-black rounded-xl text-center shadow-lg">
     <h1 class="text-3xl font-bold mb-6">Registration</h1>
 
-    <form method="POST" action="{{ route('register') }}" class="space-y-4">
+   <form method="POST" action="{{ route('register') }}">
+
+
+
         @csrf
 
         {{-- Name --}}
-        <input type="text" name="name" placeholder="Full Name"
+        <input type="text" name="customer_name" placeholder="Full Name"
                class="w-full p-3 bg-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-               value="{{ old('name') }}" required>
+               value="{{ old('customer_name') }}" required>
 
         {{-- Email --}}
-        <input type="email" name="email" placeholder="Email Address"
+        <input type="email" name="email_address" placeholder="Email Address"
                class="w-full p-3 bg-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-               value="{{ old('email') }}" required>
+               value="{{ old('email_address') }}" required>
 
         {{-- Password --}}
         <input type="password" name="password" placeholder="Password"

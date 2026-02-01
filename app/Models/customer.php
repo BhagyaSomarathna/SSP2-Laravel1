@@ -36,14 +36,19 @@ class customer extends Authenticatable
     {
         return $this->hasMany(Order::class);
     }
-
-  public function setPasswordAttribute($value)
-{
-    if (!str_starts_with($value, '$2y$')) {
-        $this->attributes['password'] = Hash::make($value);
-    } else {
-        $this->attributes['password'] = $value;
+/**
+     * This tells Laravel which column to use for login.
+     */
+    public function getAuthIdentifierName()
+    {
+        return 'email_address';
     }
-}
 
+    /**
+     * This tells Laravel which column to use for password resets.
+     */
+    public function getEmailForPasswordReset()
+    {
+        return $this->email_address;
+    }
 }

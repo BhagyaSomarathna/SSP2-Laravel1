@@ -14,7 +14,8 @@ use Illuminate\Support\Str;
 use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable;
 use Laravel\Fortify\Fortify;
 use Illuminate\Support\Facades\Hash;
-use App\Models\customer; // Import your Customer model
+use App\Models\customer; 
+use Illuminate\Support\Facades\Password;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -38,7 +39,8 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
         Fortify::redirectUserForTwoFactorAuthenticationUsing(RedirectIfTwoFactorAuthenticatable::class);
 
-        Fortify::authenticateUsing(function ($request) {
+       // Authentication
+Fortify::authenticateUsing(function ($request) {
     $customer = customer::where('email_address', $request->email)->first();
 
     if ($customer && Hash::check($request->password, $customer->password)) {
@@ -46,7 +48,6 @@ class FortifyServiceProvider extends ServiceProvider
     }
 
     return null;
-
 });
 
 
@@ -63,6 +64,35 @@ class FortifyServiceProvider extends ServiceProvider
         // Login & register views
 Fortify::loginView(fn() => view('auth.login'));
 Fortify::registerView(fn() => view('auth.register'));
+
+
+/*
+Fortify::resetUserPasswordsUsing(function (array $input) {
+    // Find the customer by email_address
+    $customer = customer::where('email_address', $input['email'])->first();
+
+    if (!$customer) {
+        throw ValidationException::withMessages([
+            'email_address' => __('We can\'t find a customer with that email address.'),
+        ]);
+    }
+
+    return $customer;
+});
+*/
+
+// Password reset
+Fortify::resetUserPasswordsUsing(function (array $input) {
+    $customer = customer::where('email_address', $input['email'])->first();
+
+    if (!$customer) {
+        throw ValidationException::withMessages([
+            'email' => __('We can\'t find a customer with that email address.'),
+        ]);
+    }
+
+    return $customer;
+});
 
 
 

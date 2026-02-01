@@ -10,7 +10,7 @@ class ProductController extends Controller
 {
     public function index($category)
 {
-    $items = Item::where('category_name', $category)->get();
+    $items = item::where('category_name', $category)->get();
 
     return view('products', [
         'items' => $items,
@@ -55,5 +55,56 @@ class ProductController extends Controller
 
     return redirect()->route('admin.dashboard')->with('success', 'Product uploaded successfully!');
 }
+
+
+
+    // Display all products
+public function manage()
+{
+    $products = item::orderBy('id', 'desc')->get();
+    return view('admin.product.manage', compact('products'));
+}
+
+// Show edit form
+public function edit($id)
+{
+   $product = item::findOrFail($id);
+    return view('admin.product.edit', compact('product')); // edit form blade
+}
+
+// Update product
+public function update(Request $request, $id)
+{
+   $product = item::findOrFail($id);
+
+    $request->validate([
+        'item_name' => 'required|string|max:255',
+        'category_name' => 'required|string|max:255',
+        'description' => 'required|string',
+        'price' => 'required|numeric',
+        'img' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+    ]);
+
+    $data = $request->only(['item_name','category_name','description','price']);
+
+    if ($request->hasFile('img')) {
+        $imageName = time().'_'.$request->img->getClientOriginalName();
+        $request->img->move(public_path('images'), $imageName);
+        $data['img'] = $imageName;
+    }
+
+    $product->update($data);
+
+    return redirect()->route('admin.products')->with('success', 'Product updated successfully');
+}
+
+// Delete product
+public function destroy($id)
+{
+    item::findOrFail($id)->delete();
+    return redirect()->route('admin.products')->with('success', 'Product deleted');
+}
+
+
 }
 

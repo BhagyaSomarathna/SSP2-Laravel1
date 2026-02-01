@@ -23,7 +23,17 @@
                 </button>
             </a>
 
-            <a href="{{ route('admin.product.update') }}">
+           <a href="{{ route('admin.products') }}">
+    <button
+        class="block w-72 px-10 py-4 bg-blue-400 text-white font-bold text-lg rounded-lg shadow-md
+               hover:bg-blue-500 transition">
+        Manage products
+    </button>
+</a>
+
+    @csrf
+    @method('PUT')
+
                 <button
                     class="block w-72 px-10 py-4 bg-blue-400 text-white font-bold text-lg rounded-lg shadow-md
                            hover:bg-blue-500 hover:-translate-y-1 active:translate-y-0.5 transition">
