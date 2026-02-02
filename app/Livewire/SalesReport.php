@@ -11,6 +11,7 @@ class SalesReport extends Component
 
     public function mount()
     {
+        // Query the sales data from the orders table
         $this->sales = DB::table('orders')
             ->selectRaw('
                 DATE(order_date) as order_day,
@@ -24,6 +25,7 @@ class SalesReport extends Component
 
     public function render()
     {
+        // Just return the Blade file, NO layout
         return view('livewire.sales-report');
     }
 }

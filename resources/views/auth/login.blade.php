@@ -15,7 +15,7 @@
 
         <input
             type="email"
-            name="email"
+            name="email_address"
             placeholder="Email"
             class="w-full p-3 mb-4 rounded-lg bg-gray-200"
             required

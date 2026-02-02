@@ -6,6 +6,7 @@ use App\Http\Controllers\categoryController;
 use App\Http\Controllers\adminController;
 //use App\Http\Controllers\orderController;
 use App\Http\Controllers\customerController;
+use App\Http\Controllers\authController;
 
 //-------API Routes----------
 
@@ -44,6 +45,12 @@ Route::prefix('customers')->group(function () {
     Route::put('{id}', [customerController::class, 'update']);
     Route::delete('{id}', [customerController::class, 'destroy']);
 });
+
+
+
+Route::post('login', [AuthController::class, 'login']);   // POST /api/login
+Route::middleware('auth:sanctum')->post('logout', [authController::class, 'logout']); // POST /api/logout
+
 /*
 // ------------------- Order Routes -------------------
 Route::prefix('orders')->group(function () {
