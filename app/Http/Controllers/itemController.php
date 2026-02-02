@@ -36,7 +36,7 @@ class itemController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified items.
      */
     public function show(string $id)
     {
@@ -46,11 +46,10 @@ class itemController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified item in database
      */
     public function update(Request $request, string $id)
     {
-        //
          $item = Item::findOrFail($id);
 
         $validated = $request->validate([
@@ -66,9 +65,7 @@ class itemController extends Controller
         return new itemResource($item);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+     //Remove the specified resource from storage.
     public function destroy(string $id)
     {
         //

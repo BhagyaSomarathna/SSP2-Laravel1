@@ -19,7 +19,7 @@ class adminResource extends JsonResource
             'admin_name'  => $this->admin_name,
             'admin_email' => $this->admin_email,
 
-            // Include related data only if loaded
+            
             'customers' => $this->whenLoaded('customers', function () {
                 return $this->customers->map(function ($customer) {
                     return [

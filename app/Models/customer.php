@@ -36,17 +36,16 @@ class customer extends Authenticatable
     {
         return $this->hasMany(Order::class);
     }
-/**
-     * This tells Laravel which column to use for login.
-     */
+
+      //This tells Laravel which column to use for login.
+     
     public function getAuthIdentifierName()
     {
         return 'email_address';
     }
 
-    /**
-     * This tells Laravel which column to use for password resets.
-     */
+    // This tells Laravel which column to use for password resets.
+     
     public function getEmailForPasswordReset()
     {
         return $this->email_address;

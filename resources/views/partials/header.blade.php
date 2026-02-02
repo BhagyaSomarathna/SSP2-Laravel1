@@ -12,9 +12,14 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('style.css') }}">
+
+    {{-- Livewire Styles --}}
+    @livewireStyles
 </head>
 
 <body>
+    
+
 <!-- Navigation bar -->
 <nav class="shadow-md flex justify-between items-center p-4" 
      style="background: linear-gradient(to right, #b6f2d1, #b9c9f5);">

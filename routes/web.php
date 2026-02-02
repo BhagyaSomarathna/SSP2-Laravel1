@@ -9,6 +9,10 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Actions\Fortify\CreateNewUser;
 use Illuminate\Http\Request;
+use App\Livewire\SalesReport;
+
+
+
 
 
 
@@ -17,38 +21,34 @@ Route::get('/', function () {
     return view('index');
 });
 
-
-
-
+// loads index.blade.php
 Route::get('/', function () {
-    return view('index'); // loads resources/views/index.blade.php
+    return view('index'); 
 });
 
-
+// create category.blade.php
 Route::get('/category', function () {
-    return view('category'); // create category.blade.php
+    return view('category'); 
 });
-
+// create about.blade.php
 Route::get('/about', function () {
-    return view('about'); // create category.blade.php
+    return view('about');
 });
-
+// create category.blade.php
 Route::get('/category', function () {
-    return view('category'); // create category.blade.php
+    return view('category'); 
 });
-
+// create products.blade.php
 Route::get('/products', function () {
-    return view('products'); // create category.blade.php
+    return view('products'); 
 });
-
-
-
+//Product Controller
 Route::get('/products/{category}', [ProductController::class, 'index']);
-
+//Load Contact page 
 Route::get('/contact', function () {
     return view('contact');
 });
-
+//Login 
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login'); 
@@ -56,13 +56,8 @@ Route::get('/login', function () {
 Route::post('/login', [AuthController::class, 'login'])
     ->name('login.post');
 
-
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-})->name('admin.dashboard');
-
-
-
+Route::get('/admin/dashboard', [DashboardController::class, 'index'])
+    ->name('admin.dashboard');
 
 
     // Admin Product Upload Page
@@ -74,15 +69,7 @@ Route::get('/admin/product/upload', [ProductController::class, 'uploadForm'])
 Route::post('/admin/product/upload', [ProductController::class, 'upload'])
     ->name('admin.product.upload.post');
 
-
-
- 
-
-
-    // Reports
-Route::get('/admin/report', [DashboardController::class, 'report'])
-    ->name('admin.report');
-
+    
 // Orders
 Route::get('/admin/orders', [DashboardController::class, 'orders'])
 ->name('admin.orders');
@@ -90,8 +77,6 @@ Route::get('/admin/orders', [DashboardController::class, 'orders'])
 // Customers
 Route::get('/admin/customers', [DashboardController::class, 'customers'])
 ->name('admin.customers');
-
-
 
 // Cart Page
 Route::get('/cart', [cartController::class, 'index'])->name('cart.index');
@@ -105,18 +90,14 @@ Route::get('/cart/remove/{id}', [cartController::class, 'remove'])->name('cart.r
 // Clear cart
 Route::get('/cart/clear', [cartController::class, 'clear'])->name('cart.clear');
 
-
+//checkout
 Route::get('/checkout', [CheckoutController::class, 'index'])
     ->name('checkout')
     ->middleware('auth');
 
-    
-
 Route::post('/checkout/place-order', [CheckoutController::class, 'placeOrder'])
     ->name('checkout.placeOrder')
     ->middleware('auth');
-
-
 
 Route::middleware([
     'auth:sanctum',
@@ -128,18 +109,11 @@ Route::middleware([
     })->name('dashboard');
 });
 
-
-
-
-
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-
-
 
 // Place order
 Route::post('/checkout/place-order', [CheckoutController::class, 'placeOrder'])
     ->name('checkout.placeOrder');
-
 
 // Checkout page
 Route::get('/checkout', [CheckoutController::class, 'index'])
@@ -152,8 +126,6 @@ Route::get('/order/confirmation/{id}', [CheckoutController::class, 'orderConfirm
     Route::get('/category', function () {
     return view('category');
 })->name('category'); 
-
-
 
 // Product list
 Route::get('/admin/products', [ProductController::class, 'manage'])->name('admin.products');
@@ -168,9 +140,6 @@ Route::put('/admin/products/{id}', [ProductController::class, 'update'])->name('
 Route::delete('/admin/products/{id}', [ProductController::class, 'destroy'])->name('admin.products.delete');
 
 
-
-
-
 // Show registration form
 Route::get('/register', function () {
     return view('auth.register');
@@ -181,5 +150,15 @@ Route::post('/register', function (Request $request, CreateNewUser $creator) {
 
     return redirect()->route('login')->with('success', 'Registration successful! Please login.');
 })->name('register.post');
+
+// Sales report page
+Route::get('/admin/sales-report', SalesReport::class)->name('admin.sales-report');
+Route::get('/admin/sales-report', SalesReport::class)
+     ->name('admin.sales-report');
+
+     Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
+
+
+
 
 

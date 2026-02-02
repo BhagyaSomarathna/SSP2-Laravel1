@@ -22,7 +22,7 @@ class itemResource extends JsonResource
             'description'   => $this->description,
             'img'           => $this->img,
 
-            // Include category only if loaded (optional)
+            
             'category' => $this->whenLoaded('category', function () {
                 return [
                     'category_id'   => $this->category->id,

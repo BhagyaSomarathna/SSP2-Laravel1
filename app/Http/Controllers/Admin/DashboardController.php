@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller; // must import
 use Illuminate\Http\Request;
 use App\Models\order;
 use App\Models\customer;
-use App\Models\product;
+use App\Models\item;
+
 
 class DashboardController extends Controller
 {
@@ -16,17 +17,12 @@ class DashboardController extends Controller
     {
         $totalOrders = order::count();
         $totalCustomers = customer::count();
-        $totalProducts = product::count();
+        $totalProducts = item::count();
 
         return view('admin.dashboard', compact('totalOrders','totalCustomers','totalProducts'));
     }
 
-    public function report()
-    {
-        $orders = order::all();
-        return view('admin.report', compact('orders'));
-    }
-
+   
     public function orders()
     {
         $orders = order::latest()->get();

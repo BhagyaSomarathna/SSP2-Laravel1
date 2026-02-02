@@ -4,17 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\itemController;
 use App\Http\Controllers\categoryController;
 use App\Http\Controllers\adminController;
-use App\Http\Controllers\orderController;
+//use App\Http\Controllers\orderController;
 use App\Http\Controllers\customerController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Fully working API routes for lowercase controllers.
-|
-*/
+//-------API Routes----------
 
 // ------------------- Admin Routes -------------------
 Route::prefix('admins')->group(function () {
@@ -51,7 +44,7 @@ Route::prefix('customers')->group(function () {
     Route::put('{id}', [customerController::class, 'update']);
     Route::delete('{id}', [customerController::class, 'destroy']);
 });
-
+/*
 // ------------------- Order Routes -------------------
 Route::prefix('orders')->group(function () {
     Route::get('/', [orderController::class, 'index']);
@@ -63,6 +56,7 @@ Route::prefix('orders')->group(function () {
     // Attach items to an order with quantity
     Route::post('{id}/items', [orderController::class, 'addItems']);
 });
+*/
 
 // ------------------- Test Route -------------------
 // This ensures Laravel can see at least one route.
